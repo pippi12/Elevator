@@ -37,7 +37,7 @@ model Car_Testing03
     Placement(transformation(origin = {-132, 22}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Continuous.Integrator integrator(k = 1, y_start = 10)  annotation(
     Placement(transformation(origin = {-100, 22}, extent = {{-10, -10}, {10, 10}})));
-  Elevator.Components.Car car(c = {2e4, 2e4, 1.7e4}, d = {250, 250, 250}, m = {20, 16.7, 10}, m_car = 1000, n = 3, s = {0, 0, 0}) annotation(
+  Elevator.Components.Car car(c = {2e4, 2e4, 1.7e4}, d = {250, 250, 250}, m = {20, 16.7, 10}, m_car = 1000, n = 3, s = {0, 0, 0}, s_start = 10) annotation(
     Placement(transformation(origin = {80, 48}, extent = {{-10, -10}, {10, 10}})));
 equation
   connect(EA.y, division.u1) annotation(

@@ -7,7 +7,8 @@ model Car "任意の人数の人を載せれるかご"
   parameter Modelica.Units.SI.TranslationalDampingConstant d[n];
   parameter Modelica.Units.SI.Length s[n];
   parameter Modelica.Units.SI.Mass m_car=1000"かごの質量";
-  Modelica.Mechanics.Translational.Components.Mass car(m = m_car)  annotation(
+  parameter Modelica.Units.SI.Length s_start=10 "かごの初期位置";  
+  Modelica.Mechanics.Translational.Components.Mass car(m = m_car, s(start = s_start, fixed = true))  annotation(
     Placement(transformation(origin = {0, -72}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Mechanics.Translational.Interfaces.Flange_a flange_a annotation(
     Placement(transformation(origin = {0, 98}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {0, 98}, extent = {{-10, -10}, {10, 10}})));
