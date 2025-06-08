@@ -1,0 +1,67 @@
+within Elevator.Components.Testings;
+
+model RopeSplDmp_Testing02
+  extends Modelica.Icons.Example;
+  Modelica.Mechanics.Translational.Components.Fixed fixed annotation(
+    Placement(transformation(origin = {46, -6}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Mechanics.Translational.Components.Mass mass(m = 1000, s(start = 10, fixed = true), L = 1.7, v(start = 0, fixed = true))  annotation(
+    Placement(transformation(origin = {46, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Modelica.Mechanics.Translational.Sources.Force force annotation(
+    Placement(transformation(origin = {46, 76}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+  Modelica.Blocks.Sources.Constant const(k = -9800)  annotation(
+    Placement(transformation(origin = {12, 88}, extent = {{-10, -10}, {10, 10}})));
+  RopeSplDmp ropeSplDmp annotation(
+    Placement(transformation(origin = {46, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Modelica.Blocks.Sources.Constant const1(k = 10) annotation(
+    Placement(transformation(origin = {-56, 0}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Sources.Ramp ramp(duration = 60, height = 30, offset = 10, startTime = 10) annotation(
+    Placement(transformation(origin = {-140, 136}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Sources.RealExpression EA(y = 51.45*10e9*52.1*10e-6) annotation(
+    Placement(transformation(origin = {-100, 124}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Math.Division division annotation(
+    Placement(transformation(origin = {-68, 130}, extent = {{-10, 10}, {10, -10}})));
+  Modelica.Blocks.Sources.RealExpression m(y = 1000) annotation(
+    Placement(transformation(origin = {-140, 66}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Math.Sqrt sqrt1 annotation(
+    Placement(transformation(origin = {-40, 50}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Math.Product product annotation(
+    Placement(transformation(origin = {-100, 72}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Sources.RealExpression coeff1(y = 2) annotation(
+    Placement(transformation(origin = {-140, 50}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Sources.RealExpression damping_ratio(y = 0.01) annotation(
+    Placement(transformation(origin = {-140, 30}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Math.Product product1 annotation(
+    Placement(transformation(origin = {-10, 44}, extent = {{-10, -10}, {10, 10}})));
+equation
+  connect(force.flange, mass.flange_b) annotation(
+    Line(points = {{46, 66}, {46, 60}}, color = {0, 127, 0}));
+  connect(force.f, const.y) annotation(
+    Line(points = {{46, 88}, {23, 88}}, color = {0, 0, 127}));
+  connect(ropeSplDmp.flange_b, mass.flange_a) annotation(
+    Line(points = {{46, 30}, {46, 40}}, color = {0, 127, 0}));
+  connect(fixed.flange, ropeSplDmp.flange_a) annotation(
+    Line(points = {{46, -6}, {46, 10}}, color = {0, 127, 0}));
+  connect(const1.y, ropeSplDmp.damping_constant) annotation(
+    Line(points = {{-45, 0}, {37, 0}, {37, 10}, {40, 10}}, color = {0, 0, 127}));
+  connect(const1.y, ropeSplDmp.spring_constant) annotation(
+    Line(points = {{-45, 0}, {-45, 10}, {38, 10}}, color = {0, 0, 127}));
+  connect(ropeSplDmp.unstretched_length, const1.y) annotation(
+    Line(points = {{44, 10}, {-44, 10}, {-44, 0}}, color = {0, 0, 127}));
+  connect(EA.y, division.u1) annotation(
+    Line(points = {{-89, 124}, {-80, 124}}, color = {0, 0, 127}));
+  connect(ramp.y, division.u2) annotation(
+    Line(points = {{-129, 136}, {-80, 136}}, color = {0, 0, 127}));
+  connect(m.y, product.u2) annotation(
+    Line(points = {{-129, 66}, {-113, 66}}, color = {0, 0, 127}));
+  connect(product.y, sqrt1.u) annotation(
+    Line(points = {{-89, 72}, {-52, 72}, {-52, 50}}, color = {0, 0, 127}));
+  connect(coeff1.y, sqrt1.u) annotation(
+    Line(points = {{-129, 50}, {-52, 50}}, color = {0, 0, 127}));
+  connect(sqrt1.y, product1.u1) annotation(
+    Line(points = {{-29, 50}, {-23, 50}}, color = {0, 0, 127}));
+  connect(damping_ratio.y, product1.u2) annotation(
+    Line(points = {{-129, 30}, {-57, 30}, {-57, 38}, {-22, 38}}, color = {0, 0, 127}));
+  connect(division.y, product.u1) annotation(
+    Line(points = {{-56, 130}, {-48, 130}, {-48, 92}, {-122, 92}, {-122, 78}, {-112, 78}}, color = {0, 0, 127}));
+  annotation(
+    Diagram);end RopeSplDmp_Testing02;

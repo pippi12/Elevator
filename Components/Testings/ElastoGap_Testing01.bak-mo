@@ -1,28 +1,28 @@
 within Elevator.Components.Testings;
 
-model Test01
+model ElastoGap_Testing01
   extends Modelica.Icons.Example;
   ElastoGap elastoGap(d = 0, s_rel0 = 1, n = 1)  annotation(
     Placement(transformation(origin = {1, 1}, extent = {{-21, -21}, {21, 21}}, rotation = 180)));
   Modelica.Mechanics.Translational.Components.Fixed fixed annotation(
     Placement(transformation(origin = {-46, -18}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Mechanics.Translational.Components.Mass mass(m = 0.1, s(start = 3, fixed = true), L = 0.2, v(start = 0, fixed = true))  annotation(
-    Placement(transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {42, 0}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Mechanics.Translational.Sources.Force force annotation(
     Placement(transformation(origin = {50, 66}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.Constant const(k = -0.98)  annotation(
     Placement(transformation(origin = {10, 66}, extent = {{-10, -10}, {10, 10}})));
-  Modelica.Blocks.Sources.Ramp ramp(height = -90, duration = 10, offset = 100, startTime = 10)  annotation(
+  Modelica.Blocks.Sources.Ramp ramp(height = -90, duration = 10, offset = 200, startTime = 10)  annotation(
     Placement(transformation(origin = {4, -42}, extent = {{-10, -10}, {10, 10}})));
 equation
   connect(elastoGap.flange_a, fixed.flange) annotation(
     Line(points = {{22, 1}, {-46, 1}, {-46, -18}}, color = {0, 127, 0}));
   connect(elastoGap.flange_b, mass.flange_a) annotation(
-    Line(points = {{-20, 1}, {40, 1}, {40, 0}}, color = {0, 127, 0}));
+    Line(points = {{-20, 1}, {32, 1}, {32, 0}}, color = {0, 127, 0}));
   connect(force.flange, mass.flange_b) annotation(
-    Line(points = {{60, 66}, {60, 0}}, color = {0, 127, 0}));
+    Line(points = {{60, 66}, {60, 34}, {52, 34}, {52, 0}}, color = {0, 127, 0}));
   connect(force.f, const.y) annotation(
     Line(points = {{38, 66}, {22, 66}}, color = {0, 0, 127}));
   connect(elastoGap.spring_constant, ramp.y) annotation(
     Line(points = {{22, -14}, {16, -14}, {16, -42}}, color = {0, 0, 127}));
-end Test01;
+end ElastoGap_Testing01;

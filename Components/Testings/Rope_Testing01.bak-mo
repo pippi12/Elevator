@@ -1,0 +1,62 @@
+within Elevator.Components.Testings;
+
+model Rope_Testing01
+  extends Modelica.Icons.Example;
+  Modelica.Mechanics.Translational.Components.Fixed fixed annotation(
+    Placement(transformation(origin = {46, -6}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Mechanics.Translational.Components.Mass mass(m = 1000, s(start = 10, fixed = true), L = 1.7, v(start = 0, fixed = true))  annotation(
+    Placement(transformation(origin = {46, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Modelica.Mechanics.Translational.Sources.Force force annotation(
+    Placement(transformation(origin = {46, 76}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+  Modelica.Blocks.Sources.Constant const(k = -9800)  annotation(
+    Placement(transformation(origin = {12, 88}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Sources.Ramp ramp(height = 30, duration = 60, offset = 10, startTime = 10)  annotation(
+    Placement(transformation(origin = {-82, 44}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Sources.RealExpression EA(y = 51.45*10e9*52.1*10e-6)  annotation(
+    Placement(transformation(origin = {-42, 32}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Math.Division division annotation(
+    Placement(transformation(origin = {-10, 38}, extent = {{-10, 10}, {10, -10}})));
+  RopeSpl ropeSpl annotation(
+    Placement(transformation(origin = {46, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Modelica.Blocks.Sources.RealExpression m(y = 1000) annotation(
+    Placement(transformation(origin = {-82, -26}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Math.Sqrt sqrt1 annotation(
+    Placement(transformation(origin = {-10, -36}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Math.Product product annotation(
+    Placement(transformation(origin = {-42, -20}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Sources.RealExpression coeff1(y = 2) annotation(
+    Placement(transformation(origin = {-82, -42}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Sources.RealExpression damping_ratio(y = 0.01) annotation(
+    Placement(transformation(origin = {-82, -62}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Math.Product product1 annotation(
+    Placement(transformation(origin = {20, -42}, extent = {{-10, -10}, {10, 10}})));
+equation
+  connect(force.flange, mass.flange_b) annotation(
+    Line(points = {{46, 66}, {46, 60}}, color = {0, 127, 0}));
+  connect(force.f, const.y) annotation(
+    Line(points = {{46, 88}, {23, 88}}, color = {0, 0, 127}));
+  connect(EA.y, division.u1) annotation(
+    Line(points = {{-31, 32}, {-22, 32}}, color = {0, 0, 127}));
+  connect(ramp.y, division.u2) annotation(
+    Line(points = {{-71, 44}, {-22, 44}}, color = {0, 0, 127}));
+  connect(ropeSpl.unstretched_length, ramp.y) annotation(
+    Line(points = {{38, 10}, {-60, 10}, {-60, 44}, {-70, 44}}, color = {0, 0, 127}));
+  connect(ropeSpl.spring_constant, division.y) annotation(
+    Line(points = {{42, 10}, {42, 4}, {18, 4}, {18, 38}, {2, 38}}, color = {0, 0, 127}));
+  connect(fixed.flange, ropeSpl.flange_a) annotation(
+    Line(points = {{46, -6}, {46, 10}}, color = {0, 127, 0}));
+  connect(ropeSpl.flange_b, mass.flange_a) annotation(
+    Line(points = {{46, 30}, {46, 40}}, color = {0, 127, 0}));
+  connect(division.y, product.u1) annotation(
+    Line(points = {{2, 38}, {8, 38}, {8, 18}, {-74, 18}, {-74, -14}, {-54, -14}}, color = {0, 0, 127}));
+  connect(m.y, product.u2) annotation(
+    Line(points = {{-70, -26}, {-54, -26}}, color = {0, 0, 127}));
+  connect(product.y, sqrt1.u) annotation(
+    Line(points = {{-30, -20}, {-22, -20}, {-22, -36}}, color = {0, 0, 127}));
+  connect(coeff1.y, sqrt1.u) annotation(
+    Line(points = {{-70, -42}, {-28, -42}, {-28, -36}, {-22, -36}}, color = {0, 0, 127}));
+  connect(sqrt1.y, product1.u1) annotation(
+    Line(points = {{2, -36}, {8, -36}}, color = {0, 0, 127}));
+  connect(damping_ratio.y, product1.u2) annotation(
+    Line(points = {{-70, -62}, {2, -62}, {2, -48}, {8, -48}}, color = {0, 0, 127}));
+end Rope_Testing01;
